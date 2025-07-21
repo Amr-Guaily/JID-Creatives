@@ -1,7 +1,7 @@
 import ErrorMessage from '@/components/ErrorMessage';
 import MovieDetails from '@/components/MovieDetails';
 import { MovieService } from '@/lib/movieService';
-import { Movie } from '@/types';
+import { Movie } from '@/types/movie';
 import { notFound } from 'next/navigation';
 
 export default async function MovieDetailsPage({
