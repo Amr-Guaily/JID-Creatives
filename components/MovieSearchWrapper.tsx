@@ -39,6 +39,12 @@ export default function MovieSearchWrapper({
       return;
     }
 
+    if (query.length < 3) {
+      setCurrentQuery(query);
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setCurrentQuery(query);

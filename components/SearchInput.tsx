@@ -17,7 +17,7 @@ export default function SearchInput({
   const [query, setQuery] = useState(initialValue);
 
   useEffect(() => {
-    if (query.trim() && query.length >= 2) {
+    if (query.trim() && query.length >= 3) {
       onSearch(query.trim());
     }
   }, []);
@@ -27,9 +27,8 @@ export default function SearchInput({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
-    if (newQuery.trim().length >= 3) {
-      debouncedSearch(newQuery.trim());
-    }
+
+    debouncedSearch(newQuery.trim());
   };
 
   return (
@@ -74,14 +73,15 @@ export default function SearchInput({
             </svg>
           </button>
         )}
+
         <input
           type="text"
-          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+          className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg text-slate-800"
           placeholder={placeholder}
           value={query}
           onChange={handleChange}
           disabled={loading}
-          minLength={2}
+          minLength={3}
         />
         {loading && (
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
