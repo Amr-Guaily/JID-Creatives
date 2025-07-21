@@ -2,6 +2,7 @@
 
 import { MovieService } from '@/lib/movieService';
 import { MovieSearchResult } from '@/types/movie';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import ErrorMessage from './ErrorMessage';
 import LoadingSpinner from './LoadingSpinner';
@@ -15,6 +16,9 @@ interface MovieSearchWrapperProps {
 export default function MovieSearchWrapper({
   initialQuery,
 }: MovieSearchWrapperProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [searchResults, setSearchResults] = useState<MovieSearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,7 +26,11 @@ export default function MovieSearchWrapper({
   const [currentQuery, setCurrentQuery] = useState(initialQuery);
 
   const handleSearch = useCallback(async (query: string) => {
+    const params = new URLSearchParams(searchParams);
+
     if (!query) {
+      params.delete('q');
+      router.push(`/?${params.toString()}`, { scroll: false });
       setSearchResults([]);
       setCurrentQuery('');
       setError(null);
@@ -51,6 +59,9 @@ export default function MovieSearchWrapper({
       setSearchResults([]);
     } finally {
       setLoading(false);
+      // Update URL with search query
+      params.set('q', query);
+      router.push(`/?${params.toString()}`, { scroll: false });
     }
   }, []);
 

@@ -10,7 +10,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
   return (
     <Link
       href={`/${movie.imdbID}`}
-      className="block bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      className="block bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-200 hover:scale-[1.03] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
       <div className="relative h-64 bg-gray-200">
         <MovieImage
