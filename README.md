@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JID-Creatives Movie Search App 🎬
+
+A modern, responsive movie search application built with Next.js 15, TypeScript, and TailwindCSS. Search through thousands of movies and TV shows using the OMDb API.
+
+> **Note**: This project was created as a technical assessment for a Frontend Developer position at JID-Creatives.
+
+## Features
+
+- **Movie Search**: Search for movies and TV shows by title
+- **Persistent Search**: Search queries persist in URL for sharing and page refreshes
+- **URL-based Navigation**: Share specific search results or movie details via URL
+- **Detailed Information**: View comprehensive movie details including cast, ratings, plot, and more
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Image Handling**: Robust external image loading with fallback placeholders
+- **Error Handling**: Graceful error handling with user-friendly messages
+- **TypeScript**: Full type safety throughout the application
+
+## Technologies Used
+
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type-safe JavaScript
+- **TailwindCSS** - Utility-first CSS framework
+- **OMDb API** - Movie database API
+- **React Hooks** - Modern React patterns
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Amr-Guaily/JID-Creatives.git
+cd JID-Creatives
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Set up environment variables:
+
+```bash
+cp .env.example .env.local
+```
+
+4. Add your OMDb API key to `.env.local`:
+
+```
+NEXT_PUBLIC_OMDB_API_KEY=your_api_key_here
+NEXT_PUBLIC_OMDB_BASE_URL=http://www.omdbapi.com/
+```
+
+5. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## API Configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The app uses the OMDb API to fetch movie data. You'll need to:
 
-## Learn More
+1. Get a free API key from [OMDb API](http://www.omdbapi.com/apikey.aspx)
+2. Add it to your `.env.local` file
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+├── app/                    # Next.js App Router
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx           # Home page
+├── components/            # React components
+│   ├── ErrorMessage.tsx   # Error display component
+│   ├── LoadingSpinner.tsx # Loading indicator
+│   ├── MovieCard.tsx      # Movie card component
+│   ├── MovieDetails.tsx   # Movie details view
+│   ├── MovieImage.tsx     # Optimized image component
+│   └── SearchInput.tsx    # Search input with debouncing
+├── lib/                   # Utility functions
+│   └── movieService.ts    # API service layer
+├── types/                 # TypeScript type definitions
+│   └── movie.ts           # Movie-related types
+└── public/                # Static assets
+    └── placeholder-movie.svg # Fallback movie poster
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Features in Detail
 
-## Deploy on Vercel
+### Persistent Search Functionality
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **URL-based State**: Search queries and movie selections are stored in the URL
+- **Page Refresh Persistence**: Users can refresh the page and their search will be re-executed with fresh data
+- **Shareable URLs**: Users can share direct links to specific search results or movie details
+- **Fresh Data**: Always fetches fresh data from the API when restoring state
+- **Navigation History**: Browser back/forward buttons work correctly with search state
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Search Functionality
+
+- Debounced search input (500ms delay)
+- Minimum 3 characters required
+- Real-time search results
+- Error handling for API failures
+
+### Image Handling
+
+- Optimized external image loading
+- Automatic fallback to placeholder for broken images
+- Configured domains for OMDb API image sources
+- Responsive image sizing
+
+### Responsive Design
+
+- Mobile-first approach
+- Responsive grid layouts
+- Touch-friendly interface
+- Smooth animations and transitions
+
+### Error Handling
+
+- Network error handling
+- API rate limiting handling
+- User-friendly error messages
+- Retry functionality

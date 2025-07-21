@@ -44,15 +44,15 @@ export default function MovieSearchWrapper({
     setCurrentQuery(query);
     setHasSearched(true);
 
+    // Update URL with search query
+    params.set('q', query);
+    router.push(`/?${params.toString()}`, { scroll: false });
+
     try {
       const response = await MovieService.searchMovies(query);
       const results = response.Search || [];
 
       setSearchResults(results);
-
-      // Update URL with search query
-      params.set('q', query);
-      router.push(`/?${params.toString()}`, { scroll: false });
     } catch (err) {
       setError(
         err instanceof Error
@@ -104,43 +104,37 @@ export default function MovieSearchWrapper({
       )}
 
       {/* Search Loading */}
-      {loading ||
-        (!hasSearched && (
-          <div className="flex justify-center items-center py-16">
-            <div className="text-center">
-              <LoadingSpinner size="lg" className="mx-auto mb-4" />
-              <p className="text-gray-600">Searching for movies...</p>
-            </div>
+      {loading && (
+        <div className="flex justify-center items-center py-16">
+          <div className="text-center">
+            <LoadingSpinner size="lg" className="mx-auto mb-4" />
+            <p className="text-gray-600">Searching for movies...</p>
           </div>
-        ))}
+        </div>
+      )}
 
       {/* No Results State - Only show after a search has been performed */}
-      {searchResults.length === 0 &&
-        currentQuery &&
-        !loading &&
-        hasSearched && (
-          <div className="text-center py-16">
-            <svg
-              className="w-24 h-24 text-gray-300 mx-auto mb-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <h3 className="text-xl font-medium text-gray-900 mb-2">
-              No movies found
-            </h3>
-            <p className="text-gray-500">
-              Try searching with different keywords
-            </p>
-          </div>
-        )}
+      {searchResults.length === 0 && !loading && hasSearched && (
+        <div className="text-center py-16">
+          <svg
+            className="w-24 h-24 text-gray-300 mx-auto mb-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <h3 className="text-xl font-medium text-gray-900 mb-2">
+            No movies found
+          </h3>
+          <p className="text-gray-500">Try searching with different keywords</p>
+        </div>
+      )}
 
       {/* Welcome State */}
       {!currentQuery && !hasSearched && (

@@ -1,7 +1,8 @@
 import { Movie, SearchResponse } from '@/types/movie';
 
-const API_KEY = process.env.NEXT_PUBLIC_OMDB_API_KEY;
-const BASE_URL = process.env.NEXT_PUBLIC_OMDB_BASE_URL;
+const API_KEY = process.env.NEXT_PUBLIC_OMDB_API_KEY || 'ce9ee0f0';
+const BASE_URL =
+  process.env.NEXT_PUBLIC_OMDB_BASE_URL || 'http://www.omdbapi.com/';
 
 if (!API_KEY) {
   throw new Error(
@@ -26,7 +27,6 @@ export class MovieService {
 
       const data = await response.json();
 
-      // Check if the API returned an error
       if (data.Response === 'False') {
         throw new Error(data.Error || 'API request failed');
       }
@@ -60,17 +60,6 @@ export class MovieService {
     }
 
     const url = `${BASE_URL}?apikey=${API_KEY}&i=${imdbID}&plot=full`;
-    return this.makeRequest<Movie>(url);
-  }
-
-  static async getMovieByTitle(title: string): Promise<Movie> {
-    if (!title.trim()) {
-      throw new Error('Movie title cannot be empty');
-    }
-
-    const url = `${BASE_URL}?apikey=${API_KEY}&t=${encodeURIComponent(
-      title
-    )}&plot=full`;
     return this.makeRequest<Movie>(url);
   }
 }
