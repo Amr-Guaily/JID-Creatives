@@ -3,7 +3,7 @@
 import { MovieService } from '@/lib/movieService';
 import { MovieSearchResult } from '@/types/movie';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import ErrorMessage from './ErrorMessage';
 import LoadingSpinner from './LoadingSpinner';
 import MovieCard from './MovieCard';
@@ -70,13 +70,6 @@ export default function MovieSearchWrapper({
       setLoading(false);
     }
   }, []);
-
-  // Handle initial query on mount
-  useEffect(() => {
-    if (initialQuery) {
-      handleSearch(initialQuery);
-    }
-  }, [initialQuery, handleSearch]);
 
   return (
     <div className="mt-6">
